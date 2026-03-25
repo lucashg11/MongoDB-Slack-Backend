@@ -1,5 +1,8 @@
 
 import WorkspaceMember from "../models/workspaceMember.model.js"
+import Workspace from "../models/workspace.model.js"
+import User from "../models/user.model.js"
+
 
 class WorkspaceMemberRepository {
     async create(fk_id_workspace, fk_id_user, role) {
