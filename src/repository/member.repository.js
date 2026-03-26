@@ -22,7 +22,7 @@ class WorkspaceMemberRepository {
         const new_workspace_member = await WorkspaceMember.findByIdAndUpdate(
             member_id,
             { role: role },
-            { returnDocument: 'after'}
+            { returnDocument: 'after' }
         )
         return new_workspace_member
     }
@@ -37,20 +37,20 @@ class WorkspaceMemberRepository {
         */
 
         const members = await WorkspaceMember.find({ fk_id_workspace: fk_id_workspace })
-        .populate('fk_id_user', 'name email')
-        .populate('fk_id_workspace', 'title description')
-        
+            .populate('fk_id_user', 'name email')
+            .populate('fk_id_workspace', 'title description')
+
         const members_mapped = members.map(
             (member) => {
                 return {
                     member_id: member._id,
                     member_role: member.role,
                     member_created_at: member.created_at,
-                    
+
                     user_id: member.fk_id_user._id,
                     user_name: member.fk_id_user.name,
                     user_email: member.fk_id_user.email,
-                    
+
                     workspace_id: member.fk_id_workspace._id,
                     workspace_title: member.fk_id_workspace.title,
                     workspace_description: member.fk_id_workspace.description
@@ -61,19 +61,23 @@ class WorkspaceMemberRepository {
         return members_mapped
     }
 
-    async getWorkspaceListByUserId(user_id){
-        const members = await WorkspaceMember.find({fk_id_user: user_id})
-        .populate('fk_id_workspace');
+    async getWorkspaceListByUserId(user_id) {
+        const members = await WorkspaceMember.find({ fk_id_user: user_id })
+            .populate('fk_id_workspace')
+            .populate('fk_id_user', 'email');
+
         const member_mapped = members.map(
-            (member) =>{
+            (member) => {
                 return {
                     member_id: member.id,
                     member_role: member.role,
                     member_created_at: member.created_at,
-
+                    user_id: member.fk_id_user._id,
+                    user_email: member.fk_id_user.email,
                     workspace_id: member.fk_id_workspace._id,
                     workspace_title: member.fk_id_workspace.title,
-                    workspace_description: member.fk_id_workspace.description
+                    workspace_description: member.fk_id_workspace.description,
+                    workspace_img: member.fk_id_workspace.url_image
                 }
 
             }
