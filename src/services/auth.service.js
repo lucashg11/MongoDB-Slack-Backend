@@ -4,6 +4,8 @@ import mailerTransporter from "../config/mailer.config.js";
 import ServerError from "../helpers/error.helper.js";
 import userRepository from "../repository/user.repository.js";
 import bcrypt from "bcrypt";
+import { EMAIL_TEMPLATES } from "../helpers/email.helper.js";
+
 
 class AuthService {
     async register({ name, email, password }) {
@@ -87,7 +89,7 @@ class AuthService {
         return auth_token
     }
 
-    
+
 
     async sendVerifyEmail({ email, name }) {
         const verify_email_token = jwt.sign(
@@ -100,17 +102,12 @@ class AuthService {
                 expiresIn: '7d'
             }
         );
-        await mailerTransporter.sendMail(  
+        await mailerTransporter.sendMail(
             {
                 from: ENVIRONMENT.MAIL_USER,
                 to: email,
                 subject: `Bienvenido ${name} verifica tu correo electronico`,
-                html: `
-                    <h1>Bienvenido ${name}</h1>
-                    <p>Te has registrado correctamente, necesitamos verificar tu correo electronico</p>
-                    <a href="${ENVIRONMENT.URL_BACKEND + `/api/auth/verify-email?verify_email_token=${verify_email_token}`}">Click aqui para verificar</a>
-                    <span>Si no reconoces este registro desestima este mail.</span>
-                `
+                html: EMAIL_TEMPLATES.VERIFY_EMAIL(name, verify_email_token)
             }
         )
     }
@@ -141,11 +138,7 @@ class AuthService {
                     from: ENVIRONMENT.MAIL_USER,
                     to: email,
                     subject: `Solicitud de restablecimiento de contraseña`,
-                    html: `
-                        <h1>Hola ${user.name}</h1>
-                        <p>Recibimos una solicitud para restablecer tu contraseña, si no fuiste tu ignora este correo.</p>
-                        <a href="${ENVIRONMENT.URL_BACKEND + `/api/auth/reset-password/${reset_password_token}`}">Click aqui para restablecer tu contraseña</a>
-                    `
+                    html: EMAIL_TEMPLATES.RESET_PASSWORD(user.name, reset_password_token)
                 }
             )
         } catch (error) {
