@@ -2,13 +2,13 @@ import Workspace from "../models/workspace.model.js";
 
 class WorkspaceRepository {
   async create(title, description, url_image, active) {
-    const user = await Workspace.create({
+    const workspace = await Workspace.create({
       title: title,
-      description: description, 
+      description: description,
       url_image,
       active
     })
-    console.log("workspace created: ", user)
+    return workspace
   }
   async deleteById(workspace_id) {
     await Workspace.findByIdAndDelete(workspace_id);
@@ -19,8 +19,8 @@ class WorkspaceRepository {
 
   async updateById(workspace_id, new_workspace_props) {
     const new_user = Workspace.findByIdAndUpdate(
-      workspace_id, 
-      new_workspace_props, 
+      workspace_id,
+      new_workspace_props,
       { returnDocument: 'after' }
     )
     return new_user

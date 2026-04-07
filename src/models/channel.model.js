@@ -1,10 +1,3 @@
-/* 
-    fk_id_workspace
-    name
-    description
-    created_at
-*/
-
 import mongoose from "mongoose";
 
 const channelSchema = new mongoose.Schema({

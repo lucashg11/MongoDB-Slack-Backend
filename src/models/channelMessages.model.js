@@ -1,10 +1,3 @@
-/* 
-    fk_id_channel
-    content
-    created_at
-    fk_id_member
-*/
-
 import mongoose from "mongoose";
 
 const channelMessageSchema = new mongoose.Schema({

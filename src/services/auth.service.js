@@ -71,11 +71,14 @@ class AuthService {
     async login({ email, password }) {
         const user = await userRepository.getByEmail(email);
         if (!user) {
-            throw new ServerError('Usuario no encontrado', 404)
+            throw new ServerError('Email o contraseña incorrectos', 404)
+        }
+        if (!user.email_verified) {
+            throw new ServerError('El usuario aún no ha sido validado', 403)
         }
         const is_same_password = await bcrypt.compare(password, user.password);
         if (!is_same_password) {
-            throw new ServerError('Contraseña incorrecta', 401)
+            throw new ServerError('Email o contraseña incorrectos', 401)
         }
         const auth_token = jwt.sign(
             {
@@ -163,14 +166,14 @@ class AuthService {
             }
 
             const hashedPassword = await bcrypt.hash(password, 12);
-            await userRepository.updateById(user.id, { password: hashedPassword })
+            await userRepository.updateById(user._id, { password: hashedPassword })
         }
         catch (error) {
-            if (error instanceof jwt.JsonWebTokenError) {
-                throw new ServerError("Token invalido", 400)
+            if (error instanceof jwt.TokenExpiredError) {
+                throw new ServerError("Token expirado", 400)
             }
             else if (error instanceof jwt.JsonWebTokenError) {
-                throw new ServerError("Token expirado", 400)
+                throw new ServerError("Token invalido", 400)
             }
             throw error
         }

@@ -189,6 +189,12 @@ class AuthController {
                     message: error.message
                 })
             }
+            console.error('Error inesperado en resetPassword', error);
+            return res.status(500).json({
+                ok: false,
+                status: 500,
+                message: "Internal server error"
+            });
         }
     }
 }
