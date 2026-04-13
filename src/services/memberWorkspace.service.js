@@ -8,7 +8,7 @@ class MemberWorkspaceService {
     }
 
     async create(user_id, workspace_id, role) {
-        const result = await workspaceMemberRepository.getByWorkspaceAndUserId(workspace_id, user_id)
+        const result = await workspaceMemberRepository.getByWorkspaceAndUserId(user_id, workspace_id)
         if (result.length > 0) {
             throw new ServerError("El usuario ya es miembro del workspace")
         }

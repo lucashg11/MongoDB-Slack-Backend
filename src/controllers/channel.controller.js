@@ -1,64 +1,21 @@
-import ServerError from "../helpers/error.helper.js"
-import workspaceMemberRepository from "../repository/member.repository.js"
-import workspaceRepository from "../repository/workspace.repository.js";
-import workspaceService from "../services/workspace.service.js";
+import ServerError from "../helpers/error.helper.js";
 
-class WorkspaceController {
-    async getWorkspaces(req, res) {
-        try {
-            const user = req.user
-            const workspaces = await workspaceMemberRepository.getWorkspaceListByUserId(user.id);
-            console.log(workspaces)
-            res.json(
-                {
-                    ok: true,
-                    status: 200,
-                    message: 'Espacios de trabajos obtenidos',
-                    data: {
-                        workspaces
-                    }
-                }
-            )
-        }
-        catch (error) {
-            if (error instanceof ServerError) {
-                return res.status(error.status).json(
-                    {
-                        ok: false,
-                        status: error.status,
-                        message: error.message
-                    }
-                )
-            }
-            else {
-                console.log("error inesperado en el registro", error)
-                return res.status(500).json(
-                    {
-                        ok: false,
-                        status: 500,
-                        message: "Internal Server Error"
-                    }
-                )
-            }
-        }
-    }
+import channelService from "../services/channel.service.js";
 
-    async createWorkspace(req, res) {
-        try {
-            const user = req.user
-            const { title, description } = req.body
-            await workspaceService.create(
-                title,
-                description,
-                '',
-                user.id
-            )
-
+class ChannelController {
+    async create(req, res) {
+        try{
+            const { workspace_id } = req.params
+            const { name, description } = req.body
+            const channel_created = await channelService.create(name, description, workspace_id)
             return res.status(201).json(
                 {
                     ok: true,
                     status: 201,
-                    message: "Espacio de trabajo creado exitosamente",
+                    message: "Canal creado exitosamente",
+                    data: {
+                        channel: channel_created
+                    }
                 }
             )
         }
@@ -85,19 +42,17 @@ class WorkspaceController {
         }
     }
 
-    async getWorkspaceById(req, res) {
+    async getChannelsByWorkspace(req, res) {
         const { workspace_id } = req.params
         try {
-            const workspace = await workspaceService.getWorkspace(workspace_id)
-            const members = await workspaceMemberRepository.getWorkspaceMembers(workspace_id)
-            res.json(
+            const channels = await channelService.getChannelsByWorkspace(workspace_id)
+            return res.status(200).json(
                 {
                     ok: true,
                     status: 200,
-                    message: 'Espacio de trabajo obtenido',
+                    message: "Canales obtenidos exitosamente",
                     data: {
-                        workspace,
-                        members: members
+                        channels
                     }
                 }
             )
@@ -114,6 +69,41 @@ class WorkspaceController {
             }
             else {
                 console.log("error inesperado en el registro", error)
+                return res.status(500).json(
+                    {
+                        ok: false,
+                        status: 500,
+                        message: "Internal Server Error"
+                    }
+                )
+            }
+        }
+    }
+
+    async deleteById(req, res) {
+        const { channel_id } = req.params
+        try {
+            await channelService.deleteById(channel_id)
+            return res.status(200).json(
+                {
+                    ok: true,
+                    status: 200,
+                    message: "Canal eliminado exitosamente"
+                }
+            )
+        }
+        catch (error) {
+            if (error instanceof ServerError) {
+                return res.status(error.status).json(
+                    {
+                        ok: false,
+                        status: error.status,
+                        message: error.message
+                    }
+                )
+            }
+            else {
+                console.log("error inesperado al eliminar el canal", error)
                 return res.status(500).json(
                     {
                         ok: false,
@@ -125,6 +115,7 @@ class WorkspaceController {
         }
     }
 }
-const workspaceController = new WorkspaceController()
 
-export default workspaceController
+const channelController = new ChannelController()
+
+export default channelController

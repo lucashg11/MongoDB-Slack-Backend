@@ -2,10 +2,10 @@
 import WorkspaceMember from "../models/workspaceMember.model.js"
 
 class WorkspaceMemberRepository {
-    async create(fk_id_workspace, fk_id_user, role) {
+    async create( fk_id_user, fk_id_workspace, role) {
         await WorkspaceMember.create({
-            fk_id_workspace: fk_id_workspace,
             fk_id_user: fk_id_user,
+            fk_id_workspace: fk_id_workspace,
             role: role
         })
     }
@@ -75,7 +75,10 @@ class WorkspaceMemberRepository {
         return member_mapped
     }
     async getByWorkspaceAndUserId(user_id, workspace_id) {
-        return await WorkspaceMember.find({ workspace_id, user_id })
+        return await WorkspaceMember.findOne({
+            fk_id_user: user_id,
+            fk_id_workspace: workspace_id
+        })
     }
 
     async isMemberPartOfWorkspaceById(user_id, workspace_id) {

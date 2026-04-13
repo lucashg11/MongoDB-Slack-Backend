@@ -22,7 +22,7 @@ function verifyMemberWorkspaceRoleMiddleware(valid_roles = []) {
             if (!workspace_member) {
                 throw new ServerError(
                     {
-                        satatus: 403,
+                        status: 403,
                         message: "El usuario no pertenece al workspace o no tiene permisos para acceder",
                         ok: false
                     }

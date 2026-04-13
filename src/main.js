@@ -13,7 +13,6 @@ app.use(express.json());
 app.use("/api/auth", authRouter);
 app.use('/api/workspace', workspaceRouter);
 
-
 app.listen(ENVIRONMENT.PORT, () => {
   console.log(`Servidor iniciado en el puerto ${ENVIRONMENT.PORT}`);
 });
