@@ -8,6 +8,10 @@ const workspaceMemberSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
+    /*email: {
+      type: String,
+      required: true,
+    },*/
     fk_id_workspace: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Workspace",
@@ -15,8 +19,13 @@ const workspaceMemberSchema = new mongoose.Schema(
     },
     role: {
       type: String,
-      enum: ["owner", "admin", "member"],
+      enum: ["owner", "admin", "member", "user"],
       default: "member",
+    },
+    acceptInvitation: {
+      type: String,
+      enum: ["pending", "accepted", "rejected"],
+      default: "pending",
     },
     created_at: {
       type: Date,

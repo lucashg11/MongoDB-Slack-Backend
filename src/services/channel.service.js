@@ -1,5 +1,6 @@
 import ServerError from "../helpers/error.helper.js";
 import channelRepository from "../repository/channel.repository.js";
+import channelMessageRepository from "../repository/channelMessages.repository.js";
 
 class ChannelService {
     async create(channel_name, channel_description, workspace_id) {
@@ -31,6 +32,34 @@ class ChannelService {
         }
         const channels = await channelRepository.getChannelsByWorkspace(workspace_id)
         return channels
+    }
+
+    async createMessage(channel_id, member_id, content) {
+        if (!channel_id || !member_id || !content) {
+            throw new ServerError("Todos los campos son obligatorios", 400)
+        }
+
+        const channel = await channelRepository.getChannelById(channel_id)
+        if (!channel) {
+            throw new ServerError("Canal no encontrado", 404)
+        }
+
+        const message = await channelMessageRepository.create(channel_id, member_id, content)
+        return message
+    }
+
+    async getMessagesByChannelId(channel_id) {
+        if (!channel_id) {
+            throw new ServerError("Debe proporcionar un id de canal", 400)
+        }
+
+        const channel = await channelRepository.getChannelById(channel_id)
+        if (!channel) {
+            throw new ServerError("Canal no encontrado", 404)
+        }
+
+        const messages = await channelMessageRepository.getByChannelId(channel_id)
+        return messages
     }
 }
 

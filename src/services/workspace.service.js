@@ -11,7 +11,8 @@ class WorkspaceService {
         await memberWorkspaceService.create(
             user_id,
             workspace_created._id,
-            'owner'
+            'owner',
+            'accepted'
         )
         return workspace_created
     }
@@ -31,6 +32,18 @@ class WorkspaceService {
         }
     }
 
+    async deleteWorkspace(workspace_id) {
+        if (!workspace_id) {
+            throw new ServerError("Debe proporcionar un id de espacio de trabajo", 400)
+        }
+        
+        const workspace = await workspaceRepository.getById(workspace_id)
+        if (!workspace) {
+            throw new ServerError("El espacio de trabajo no existe", 404)
+        }
+
+        await workspaceRepository.deleteById(workspace_id)
+    }
 }
 
 const workspaceService = new WorkspaceService()

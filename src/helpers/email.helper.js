@@ -42,5 +42,27 @@ export const EMAIL_TEMPLATES = {
                 Este es un correo automático, por favor no respondas a este mensaje.
             </p>
         </div>
+    `,
+    INVITE_MEMBER: (workspace_id, accept_token, reject_token) => `
+        <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #eee; border-radius: 10px;">
+            <h1 style="color: #655dd4; text-align: center;">Invitación a unirse al espacio de trabajo</h1>
+            <div style="text-align: center; margin: 30px 0; display: flex; justify-content: center;align-items: center; gap: 20px;">
+                <a href="${ENVIRONMENT.URL_BACKEND}/api/workspace/${workspace_id}/member/respond?token=${accept_token}" 
+                   style="background-color: #655dd4; color: white; padding: 12px 25px; text-decoration: none; border-radius: 5px; font-weight: bold; display: inline-block;">
+                    Aceptar Invitación
+                </a>
+                <a href="${ENVIRONMENT.URL_BACKEND}/api/workspace/${workspace_id}/member/respond?token=${reject_token}" 
+                   style="background-color: #f44336; color: white; padding: 12px 25px; text-decoration: none; border-radius: 5px; font-weight: bold; display: inline-block;">
+                    Rechazar
+                </a>
+            </div>
+            <p style="font-size: 14px; color: #777; text-align: center;">
+                Si no creaste una cuenta con nosotros, puedes ignorar este mensaje de forma segura.
+            </p>
+            <hr style="border: none; border-top: 1px solid #eee; margin: 20px 0;">
+            <p style="font-size: 12px; color: #aaa; text-align: center;">
+                Este es un correo automático, por favor no respondas a este mensaje.
+            </p>
+        </div>
     `
 };

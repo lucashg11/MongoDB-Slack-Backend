@@ -9,6 +9,8 @@ const ENVIRONMENT = {
   URL_BACKEND: process.env.URL_BACKEND,
   JWT_SECRET_KEY: process.env.JWT_SECRET_KEY,
   URL_FRONTEND: process.env.URL_FRONTEND,
+  URL_FRONTEND_PROD: process.env.URL_FRONTEND_PROD,
+  MODE: process.env.MODE
 };
 
 export default ENVIRONMENT;
