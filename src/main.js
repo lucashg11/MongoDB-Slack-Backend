@@ -14,7 +14,7 @@ const app = express();
 
 app.use(cors({
     origin: (origin, callback) => {
-      if(!origin || ENVIRONMENT.MODE === "dev"){
+      if(!origin || ENVIRONMENT.MODE === "prod"){
         callback(null, true);
       }
       else if (ENVIRONMENT.URL_FRONTEND_PROD.includes(origin) || ENVIRONMENT.URL_FRONTEND.includes(origin)) {
