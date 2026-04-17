@@ -8,7 +8,6 @@ class WorkspaceController {
         try {
             const user = req.user
             const workspaces = await workspaceMemberRepository.getWorkspaceListByUserId(user.id);
-            console.log(workspaces)
             res.json(
                 {
                     ok: true,

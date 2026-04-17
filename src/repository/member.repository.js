@@ -97,7 +97,6 @@ class WorkspaceMemberRepository {
                 }
             }
         )
-        console.log(members_mapped)
         return members_mapped
     }
 
