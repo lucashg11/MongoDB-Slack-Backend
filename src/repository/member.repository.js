@@ -75,7 +75,10 @@ class WorkspaceMemberRepository {
 
     async getMemberList(fk_id_workspace) {
 
-        const members = await WorkspaceMember.find({ fk_id_workspace: fk_id_workspace })
+        const members = await WorkspaceMember.find({ 
+            fk_id_workspace: fk_id_workspace,
+            acceptInvitation: 'accepted'
+        })
             .populate('fk_id_user', 'name email')
         /*.populate('fk_id_workspace', 'title description')*/
 
@@ -101,7 +104,10 @@ class WorkspaceMemberRepository {
     }
 
     async getWorkspaceListByUserId(user_id) {
-        const members = await WorkspaceMember.find({ fk_id_user: user_id })
+        const members = await WorkspaceMember.find({ 
+            fk_id_user: user_id,
+            acceptInvitation: 'accepted'
+        })
             .populate('fk_id_workspace', 'title description url_image')
 
         const member_mapped = members.map(

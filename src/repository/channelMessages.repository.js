@@ -58,8 +58,13 @@ class ChannelMessageRepository {
   async getByChannelId(channel_id) {
     try {
       return await ChannelMessage.find({ fk_id_channel: channel_id })
-        .populate('fk_id_member', 'role created_at')
-        .populate('fk_id_member.fk_id_user', 'name email')
+        .populate({
+          path: 'fk_id_member',
+          populate: {
+            path: 'fk_id_user',
+            select: 'name email'
+          }
+        })
         .sort({ created_at: 1 });
     } catch (error) {
       if (error.name === "CastError") {

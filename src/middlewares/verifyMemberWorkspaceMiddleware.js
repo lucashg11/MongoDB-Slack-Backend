@@ -28,6 +28,17 @@ function verifyMemberWorkspaceRoleMiddleware(valid_roles = []) {
                     }
                 )
             }
+
+            if (workspace_member.acceptInvitation !== 'accepted') {
+                throw new ServerError(
+                    {
+                        status: 403,
+                        message: "Debes aceptar la invitación para acceder a este espacio de trabajo",
+                        ok: false
+                    }
+                )
+            }
+
             if (valid_roles.length >= 1 && !valid_roles.includes(workspace_member.role)) {
                 throw new ServerError(
                     {

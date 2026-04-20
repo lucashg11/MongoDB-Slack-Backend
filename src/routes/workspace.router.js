@@ -112,6 +112,14 @@ workspaceRouter.post(
     channelController.createMessage
 )
 
+// Invitar miembro a un canal
+workspaceRouter.post(
+    '/:workspace_id/channels/:channel_id/invite',
+    verifyMemberWorkspaceRoleMiddleware([AVAILABLE_MEMBER_ROLES.OWNER, AVAILABLE_MEMBER_ROLES.ADMIN]),
+    verifyChannelMiddleware,
+    channelController.inviteMember
+)
+
 
 
 

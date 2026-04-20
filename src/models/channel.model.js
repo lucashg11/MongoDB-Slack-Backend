@@ -14,6 +14,19 @@ const channelSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  members: [
+    {
+      member_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "WorkspaceMember",
+      },
+      status: {
+        type: String,
+        enum: ["pending", "accepted"],
+        default: "accepted",
+      },
+    }
+  ],
   created_at: {
     type: Date,
     required: true,
