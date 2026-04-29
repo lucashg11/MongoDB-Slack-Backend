@@ -128,7 +128,7 @@ class WorkspaceController {
                             countdownElement.innerText = "Redirigiendo...";
                             window.history.back();
                             setTimeout(() => {
-                                window.location.href = "${ENVIRONMENT.URL_FRONTEND}/workspace/${result.workspace_id}";
+                                window.location.href = "${ENVIRONMENT.URL_FRONTEND}/";
                             }, 1000);
                         }
                     }, 1000);
