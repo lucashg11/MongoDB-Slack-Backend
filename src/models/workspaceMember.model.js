@@ -8,10 +8,6 @@ const workspaceMemberSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
-    /*email: {
-      type: String,
-      required: true,
-    },*/
     fk_id_workspace: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Workspace",

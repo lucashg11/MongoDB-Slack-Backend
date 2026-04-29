@@ -127,12 +127,10 @@ class MemberWorkspaceService {
         const requestingRole = requesting_member.role
         const isSelf = requesting_member._id.toString() === member_id
 
-        // Un usuario comun solo puede eliminarse a si mismo
         if (requestingRole === 'user' && !isSelf) {
             throw new ServerError('No tienes permisos para eliminar a este miembro', 403)
         }
 
-        // Un admin NO puede eliminar a un owner
         if (requestingRole === 'admin' && targetMember.role === 'owner') {
             throw new ServerError('Un administrador no puede eliminar al propietario del workspace', 403)
         }
@@ -142,23 +140,19 @@ class MemberWorkspaceService {
     }
 
     async updateMemberRole(workspace_id, member_id, newRole, currentMember, currentUserId) {
-        // Validaciones de entrada
         if (!workspace_id || !member_id || !newRole) {
             throw new ServerError('Todos los campos son obligatorios', 400)
         }
 
-        // Validar que el nuevo role sea válido
         const validRoles = ['user', 'admin', 'owner']
         if (!validRoles.includes(newRole)) {
             throw new ServerError('Role inválido', 400)
         }
 
-        // NO se puede actualizar a 'owner'
         if (newRole === 'owner') {
             throw new ServerError('No se puede actualizar a owner', 403)
         }
 
-        // El usuario no puede actualizar su propio role
         const memberToUpdate = await workspaceMemberRepository.getById(member_id)
         if (!memberToUpdate) {
             throw new ServerError('Miembro no encontrado', 404)
@@ -168,17 +162,14 @@ class MemberWorkspaceService {
             throw new ServerError('No puedes actualizar tu propio role', 403)
         }
 
-        // NO se puede actualizar a un owner (si el miembro a actualizar es owner)
         if (memberToUpdate.role === 'owner') {
             throw new ServerError('No se puede actualizar el role de un owner', 403)
         }
 
-        // Los admins NO pueden actualizar a otros admins o a owners
         if (currentMember.role === 'admin' && (memberToUpdate.role === 'admin' || memberToUpdate.role === 'owner')) {
             throw new ServerError('Los admins no pueden actualizar a otros admins o a owners', 403)
         }
 
-        // Actualizar el role
         return await workspaceMemberRepository.updateRoleById(member_id, newRole)
     }
 }

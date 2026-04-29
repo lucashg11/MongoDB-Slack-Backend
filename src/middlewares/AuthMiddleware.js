@@ -28,7 +28,6 @@ function authMiddleware(req, res, next) {
                 }
             )
         }
-        //Errores esperables en el sistema
         if (error instanceof ServerError) {
             return res.status(error.status).json(
                 {

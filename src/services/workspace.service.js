@@ -32,6 +32,23 @@ class WorkspaceService {
         }
     }
 
+    async updateWorkspace(workspace_id, { title, description, url_image }) {
+        if (!workspace_id) {
+            throw new ServerError("Debe proporcionar un id de espacio de trabajo", 400)
+        }
+        
+        const updateData = {};
+        if (title) updateData.title = title;
+        if (description) updateData.description = description;
+        if (url_image) updateData.url_image = url_image;
+
+        const updatedWorkspace = await workspaceRepository.updateById(workspace_id, updateData);
+        if (!updatedWorkspace) {
+            throw new ServerError("El espacio de trabajo no existe", 404);
+        }
+        return updatedWorkspace;
+    }
+
     async deleteWorkspace(workspace_id) {
         if (!workspace_id) {
             throw new ServerError("Debe proporcionar un id de espacio de trabajo", 400)

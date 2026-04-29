@@ -79,8 +79,7 @@ class WorkspaceMemberRepository {
             fk_id_workspace: fk_id_workspace,
             acceptInvitation: 'accepted'
         })
-            .populate('fk_id_user', 'name email')
-        /*.populate('fk_id_workspace', 'title description')*/
+            .populate('fk_id_user', 'name email profile_picture')
 
         const members_mapped = members.map(
             (member) => {
@@ -92,11 +91,8 @@ class WorkspaceMemberRepository {
                     user_id: member.fk_id_user?._id || null,
                     user_name: member.fk_id_user?.name || "Invited User",
                     user_email: member.fk_id_user?.email || member.email,
+                    user_img: member.fk_id_user?.profile_picture || null,
                     acceptInvitation: member.acceptInvitation,
-
-                    /*workspace_id: member.fk_id_workspace._id,
-                    workspace_title: member.fk_id_workspace.title,
-                    workspace_description: member.fk_id_workspace.description*/
                 }
             }
         )

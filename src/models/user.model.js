@@ -25,6 +25,14 @@ const userSchema = new mongoose.Schema(
       required: true,
       default: Date.now,
     },
+    profile_picture: {
+      type: String,
+      required: false,
+    },
+    profile_bio: {
+      type: String,
+      required: false,
+    },
   }
 );
 

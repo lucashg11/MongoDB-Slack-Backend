@@ -62,7 +62,7 @@ class ChannelMessageRepository {
           path: 'fk_id_member',
           populate: {
             path: 'fk_id_user',
-            select: 'name email'
+            select: 'name email profile_picture'
           }
         })
         .sort({ created_at: 1 });

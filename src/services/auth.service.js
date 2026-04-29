@@ -68,6 +68,21 @@ class AuthService {
         }
     }
 
+    generateToken(user) {
+        return jwt.sign(
+            {
+                email: user.email,
+                name: user.name,
+                id: user._id,
+                created_at: user.created_at
+            },
+            ENVIRONMENT.JWT_SECRET_KEY,
+            {
+                expiresIn: '1d'
+            }
+        )
+    }
+
     async login({ email, password }) {
         const user = await userRepository.getByEmail(email);
         if (!user) {
@@ -80,16 +95,8 @@ class AuthService {
         if (!is_same_password) {
             throw new ServerError('Email o contraseña incorrectos', 401)
         }
-        const auth_token = jwt.sign(
-            {
-                email: user.email,
-                name: user.name,
-                id: user._id,
-                created_at: user.created_at
-            },
-            ENVIRONMENT.JWT_SECRET_KEY
-        )
-        return auth_token
+        
+        return this.generateToken(user);
     }
 
 

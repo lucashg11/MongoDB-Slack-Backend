@@ -1,7 +1,5 @@
 function errorHandlerMiddleware(error, req, res, next) {
     console.error("Error capturado por middleware:", error);
-
-    // Errores controlados (con status definido)
     if (error.status) {
         return res.status(error.status).json({
             ok: false,
@@ -9,8 +7,6 @@ function errorHandlerMiddleware(error, req, res, next) {
             message: error.message
         });
     }
-
-    // Error genérico de servidor
     return res.status(500).json({
         ok: false,
         status: 500,

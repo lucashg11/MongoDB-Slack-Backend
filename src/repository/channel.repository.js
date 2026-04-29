@@ -54,7 +54,7 @@ class ChannelRepository {
           path: 'members.member_id',
           populate: {
             path: 'fk_id_user',
-            select: 'name email'
+            select: 'name email profile_picture'
           }
         });
     } catch (error) {

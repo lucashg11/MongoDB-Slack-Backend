@@ -2,6 +2,7 @@ import ServerError from "../helpers/error.helper.js"
 import workspaceMemberRepository from "../repository/member.repository.js"
 import workspaceService from "../services/workspace.service.js";
 import memberWorkspaceService from "../services/memberWorkspace.service.js";
+import ENVIRONMENT from "../config/env.config.js";
 
 class WorkspaceController {
     async getWorkspaces(req, res, next) {
@@ -27,11 +28,11 @@ class WorkspaceController {
     async createWorkspace(req, res, next) {
         try {
             const user = req.user
-            const { title, description } = req.body
+            const { title, description, url_image } = req.body
             await workspaceService.create(
                 title,
                 description,
-                '',
+                url_image || '',
                 user.id
             )
 
@@ -104,14 +105,36 @@ class WorkspaceController {
 
     async respondToInvitation(req, res, next) {
         const { token } = req.query
+        const { workspace_id } = req.params
         try {
             const result = await memberWorkspaceService.respondToInvitation(token)
-            return res.status(200).json({
-                ok: true,
-                status: 200,
-                message: `Invitacion ${result.acceptInvitation} con exito`,
-                data: result
-            })
+            res.status(200).send(
+                `
+                <body style="margin:0; padding: 0;">
+                    <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; background-color: #655dd4; font-family: sans-serif; color: white;">
+                        <h1 style="margin:0; padding: 0; font-family: sans-serif;">Invitación aceptada</h1>
+                        <p id="countdown" style="font-size: 1.2rem; margin-top: 1rem; font-family: sans-serif;">Serás redirigido en 3 segundos...</p>
+                    </div>
+                </body>
+                <script>
+                    let seconds = 3;
+                    const countdownElement = document.getElementById('countdown');
+                    const interval = setInterval(() => {
+                        seconds--;
+                        if (seconds > 0) {
+                            countdownElement.innerText = \`Serás redirigido en \${seconds} segundos...\`;
+                        } else {
+                            clearInterval(interval);
+                            countdownElement.innerText = "Redirigiendo...";
+                            window.history.back();
+                            setTimeout(() => {
+                                window.location.href = "${ENVIRONMENT.URL_FRONTEND}/workspace/${result.workspace_id}";
+                            }, 1000);
+                        }
+                    }, 1000);
+                </script>
+                `
+            )
         } catch (error) {
             next(error);
         }
@@ -156,12 +179,29 @@ class WorkspaceController {
         }
     }
 
+    async updateWorkspace(req, res, next) {
+        const { workspace_id } = req.params
+        const { title, description, url_image } = req.body
+        try {
+            const updatedWorkspace = await workspaceService.updateWorkspace(workspace_id, { title, description, url_image })
+            res.json({
+                ok: true,
+                status: 200,
+                message: 'Espacio de trabajo actualizado con éxito',
+                data: {
+                    workspace: updatedWorkspace
+                }
+            })
+        } catch (error) {
+            next(error);
+        }
+    }
+
     async deleteWorkspace(req, res, next) {
         const { workspace_id } = req.params
         const requesting_member = req.workspace_member
 
         try {
-            // Solo OWNER o ADMIN pueden eliminar el workspace
             if (!['owner', 'admin'].includes(requesting_member.role)) {
                 throw new ServerError("No tienes permisos para eliminar este espacio de trabajo", 403)
             }

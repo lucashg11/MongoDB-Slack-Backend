@@ -11,12 +11,10 @@ class UserRepository {
         password: password
       });
     } catch (error) {
-      // Duplicado por email o username
       if (error.code === 11000) {
         const field = Object.keys(error.keyPattern)[0];
         throw new ServerError(`El ${field} ya está registrado`, 409);
       }
-      // Validación fallida
       if (error.name === "ValidationError") {
         const messages = Object.values(error.errors).map(e => e.message);
         throw new ServerError(`Validación fallida: ${messages.join(", ")}`, 400);
