@@ -78,7 +78,7 @@ class AuthService {
             },
             ENVIRONMENT.JWT_SECRET_KEY,
             {
-                expiresIn: '1d'
+                expiresIn: '30d'
             }
         )
     }
