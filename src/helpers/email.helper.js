@@ -46,7 +46,7 @@ export const EMAIL_TEMPLATES = {
     INVITE_MEMBER: (workspace_id, accept_token, reject_token) => `
         <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #eee; border-radius: 10px;">
             <h1 style="color: #655dd4; text-align: center;">Invitación a unirse al espacio de trabajo</h1>
-            <div style="text-align:center; margin:30px 0; display:flex; justify-content:center; align-items:center; gap:8px;">
+            <div style="text-align:center;margin:30px 0;display:flex; align-items:center; justify-content:center; gap: 8px;">
                 <a href="${ENVIRONMENT.URL_BACKEND}/api/workspace/${workspace_id}/member/respond?token=${accept_token}" 
                    style="background-color: #655dd4; color: white; padding: 12px 25px; text-decoration: none; border-radius: 5px; font-weight: bold; display: inline-block;">
                     Aceptar Invitación
