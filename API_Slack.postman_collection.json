@@ -1,0 +1,897 @@
+{
+  "info": {
+    "_postman_id": "2ad49624-20ee-43b8-a024-a0f7aee49176",
+    "name": "API_Slack",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "13465490"
+  },
+  "item": [
+    {
+      "name": "/api/auth",
+      "item": [
+        {
+          "name": "Registro de Usuario",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "",
+                "value": "",
+                "type": "text",
+                "disabled": true
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"Test\",\n    \"email\": \"test.backend.dwfs@gmail.com\",\n    \"password\": \"1234\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{URL_API_SLACK}}/api/auth/register",
+              "host": [
+                "{{URL_API_SLACK}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "register"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Login del Usuario",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\":\"test.backend.dwfs@gmail.com\",\n    \"password\": \"1234\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{URL_API_SLACK}}/api/auth/login",
+              "host": [
+                "{{URL_API_SLACK}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Verificacion del Email del Usuario",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"gomezlucashernan@gmail.com\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{URL_API_SLACK}}/api/auth/verify-email",
+              "host": [
+                "{{URL_API_SLACK}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "verify-email"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Solicitud de Reseteo de Password",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImdvbWV6bHVjYXNoZXJuYW5AZ21haWwuY29tIiwibmFtZSI6Ikhlcm5hbiIsImlkIjoiNjljYWRhMDMxNmQ2YmI0M2IzNWRiOWIxIiwiY3JlYXRlZF9hdCI6IjIwMjYtMDMtMzBUMjA6MTY6MDMuMDM4WiIsImlhdCI6MTc3NDk2MzY1NH0.tVrDSSDipUFous_oW-pf8EFDHksKM8jQBTZIZ1E0ckc",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\":\"gomezlucashernan@gmail.com\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{URL_API_SLACK}}/api/auth/reset-password-request",
+              "host": [
+                "{{URL_API_SLACK}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "reset-password-request"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Resetear Password",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImdvbWV6bHVjYXNoZXJuYW5AZ21haWwuY29tIiwiaWF0IjoxNzc0OTY1MzA0LCJleHAiOjE3NzUwNTE3MDR9.nXXEejpSWNO9rdQYuUVlyr9SLe09z4zPsQfBOrJOnkI",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"password\": \"12345\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{URL_API_SLACK}}/api/auth/reset-password/:reset_password_token",
+              "host": [
+                "{{URL_API_SLACK}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "reset-password",
+                ":reset_password_token"
+              ],
+              "variable": [
+                {
+                  "key": "reset_password_token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImdvbWV6bHVjYXNoZXJuYW5AZ21haWwuY29tIiwiaWF0IjoxNzczODU2Nzc2LCJleHAiOjE3NzM5NDMxNzZ9.GnUCn2ABODvBPTFh3g-QqhIRbDPfrqx1e5okfUO0yMU"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "/api/test",
+      "item": [
+        {
+          "name": "auth_header con Bearer Token",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3QuYmFja2VuZC5kd2ZzQGdtYWlsLmNvbSIsIm5hbWUiOiJUZXN0IiwiaWQiOiI2OWMxZmJhMGE1YWFiZDU1MTlhMTZmNmMiLCJjcmVhdGVkX2F0IjoiMjAyNi0wMy0yNFQwMjo0OTowNC43OTZaIiwiaWF0IjoxNzc0MzIwNjU0fQ.uqndTRyOglF09MR1sJ2AAsH4_KX4K35QHsTUw0z8TSE",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{URL_API_SLACK}}/api/test",
+              "host": [
+                "{{URL_API_SLACK}}"
+              ],
+              "path": [
+                "api",
+                "test"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "/api/workspace",
+      "item": [
+        {
+          "name": "/:workspace_id",
+          "item": [
+            {
+              "name": "/channels",
+              "item": [
+                {
+                  "name": "/:channel_id",
+                  "item": [
+                    {
+                      "name": "/message",
+                      "item": [
+                        {
+                          "name": "Crear Mensaje",
+                          "request": {
+                            "auth": {
+                              "type": "bearer",
+                              "bearer": [
+                                {
+                                  "key": "token",
+                                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3QuYmFja2VuZC5kd2ZzQGdtYWlsLmNvbSIsIm5hbWUiOiJUZXN0IiwiaWQiOiI2OWMxZmJhMGE1YWFiZDU1MTlhMTZmNmMiLCJjcmVhdGVkX2F0IjoiMjAyNi0wMy0yNFQwMjo0OTowNC43OTZaIiwiaWF0IjoxNzc0MzIwNjU0fQ.uqndTRyOglF09MR1sJ2AAsH4_KX4K35QHsTUw0z8TSE",
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json",
+                                "type": "text"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n    \"content\": \"Mensaje de bienvenida al 'Canal General' del espacio de trabojo 'General'\"\n}"
+                            },
+                            "url": {
+                              "raw": "{{URL_API_SLACK}}/api/workspace/:workspace_id/channels/:channel_id/message",
+                              "host": [
+                                "{{URL_API_SLACK}}"
+                              ],
+                              "path": [
+                                "api",
+                                "workspace",
+                                ":workspace_id",
+                                "channels",
+                                ":channel_id",
+                                "message"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "workspace_id",
+                                  "value": "69df97be56181cf34cb80069"
+                                },
+                                {
+                                  "key": "channel_id",
+                                  "value": "69df9c2256181cf34cb80089"
+                                }
+                              ]
+                            }
+                          },
+                          "response": []
+                        },
+                        {
+                          "name": "New Request",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "auth": {
+                              "type": "bearer",
+                              "bearer": [
+                                {
+                                  "key": "token",
+                                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3QuYmFja2VuZC5kd2ZzQGdtYWlsLmNvbSIsIm5hbWUiOiJUZXN0IiwiaWQiOiI2OWMxZmJhMGE1YWFiZDU1MTlhMTZmNmMiLCJjcmVhdGVkX2F0IjoiMjAyNi0wMy0yNFQwMjo0OTowNC43OTZaIiwiaWF0IjoxNzc0MzIwNjU0fQ.uqndTRyOglF09MR1sJ2AAsH4_KX4K35QHsTUw0z8TSE",
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json",
+                                "type": "text"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n    \"content\": \"Mensaje de bienvenida al 'Canal General' del espacio de trabojo 'General'\"\n}"
+                            },
+                            "url": {
+                              "raw": "{{URL_API_SLACK}}/api/workspace/:workspace_id/channels/:channel_id/message",
+                              "host": [
+                                "{{URL_API_SLACK}}"
+                              ],
+                              "path": [
+                                "api",
+                                "workspace",
+                                ":workspace_id",
+                                "channels",
+                                ":channel_id",
+                                "message"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "workspace_id",
+                                  "value": "69df97be56181cf34cb80069"
+                                },
+                                {
+                                  "key": "channel_id",
+                                  "value": "69df9c2256181cf34cb80089"
+                                }
+                              ]
+                            }
+                          },
+                          "response": []
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "Crear Canal",
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3QuYmFja2VuZC5kd2ZzQGdtYWlsLmNvbSIsIm5hbWUiOiJUZXN0IiwiaWQiOiI2OWMxZmJhMGE1YWFiZDU1MTlhMTZmNmMiLCJjcmVhdGVkX2F0IjoiMjAyNi0wMy0yNFQwMjo0OTowNC43OTZaIiwiaWF0IjoxNzc0MzIwNjU0fQ.uqndTRyOglF09MR1sJ2AAsH4_KX4K35QHsTUw0z8TSE",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n    \"name\": \"Canal General\",\n    \"description\": \"Comunicacion general del espacio de trabajo\"\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{URL_API_SLACK}}/api/workspace/:workspace_id/channels",
+                      "host": [
+                        "{{URL_API_SLACK}}"
+                      ],
+                      "path": [
+                        "api",
+                        "workspace",
+                        ":workspace_id",
+                        "channels"
+                      ],
+                      "variable": [
+                        {
+                          "key": "workspace_id",
+                          "value": "69df97be56181cf34cb80069"
+                        }
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "Listar Canales",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3QuYmFja2VuZC5kd2ZzQGdtYWlsLmNvbSIsIm5hbWUiOiJUZXN0IiwiaWQiOiI2OWMxZmJhMGE1YWFiZDU1MTlhMTZmNmMiLCJjcmVhdGVkX2F0IjoiMjAyNi0wMy0yNFQwMjo0OTowNC43OTZaIiwiaWF0IjoxNzc0MzIwNjU0fQ.uqndTRyOglF09MR1sJ2AAsH4_KX4K35QHsTUw0z8TSE",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n    \"name\": \"canal de prueba\",\n    \"description\": \"desde postman\"\n}"
+                    },
+                    "url": {
+                      "raw": "{{URL_API_SLACK}}/api/workspace/:workspace_id/channels",
+                      "host": [
+                        "{{URL_API_SLACK}}"
+                      ],
+                      "path": [
+                        "api",
+                        "workspace",
+                        ":workspace_id",
+                        "channels"
+                      ],
+                      "variable": [
+                        {
+                          "key": "workspace_id",
+                          "value": "69df97be56181cf34cb80069"
+                        }
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "Borrar Canal",
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3QuYmFja2VuZC5kd2ZzQGdtYWlsLmNvbSIsIm5hbWUiOiJUZXN0IiwiaWQiOiI2OWMxZmJhMGE1YWFiZDU1MTlhMTZmNmMiLCJjcmVhdGVkX2F0IjoiMjAyNi0wMy0yNFQwMjo0OTowNC43OTZaIiwiaWF0IjoxNzc0MzIwNjU0fQ.uqndTRyOglF09MR1sJ2AAsH4_KX4K35QHsTUw0z8TSE",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n    \"name\": \"canal de prueba\",\n    \"description\": \"desde postman\"\n}"
+                    },
+                    "url": {
+                      "raw": "{{URL_API_SLACK}}/api/workspace/:workspace_id/channels/:channel_id",
+                      "host": [
+                        "{{URL_API_SLACK}}"
+                      ],
+                      "path": [
+                        "api",
+                        "workspace",
+                        ":workspace_id",
+                        "channels",
+                        ":channel_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "workspace_id",
+                          "value": "69df97be56181cf34cb80069"
+                        },
+                        {
+                          "key": "channel_id",
+                          "value": "69df9c2256181cf34cb80089"
+                        }
+                      ]
+                    }
+                  },
+                  "response": []
+                }
+              ]
+            },
+            {
+              "name": "/member",
+              "item": [
+                {
+                  "name": "Crear Miembro",
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3QuYmFja2VuZC5kd2ZzQGdtYWlsLmNvbSIsIm5hbWUiOiJUZXN0IiwiaWQiOiI2OWMxZmJhMGE1YWFiZDU1MTlhMTZmNmMiLCJjcmVhdGVkX2F0IjoiMjAyNi0wMy0yNFQwMjo0OTowNC43OTZaIiwiaWF0IjoxNzc2MjYwNTg1fQ.j5jc6N9pJIG1glALMwcI7T8VXOFbLsDMqbVqLxIVEi8",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n    \"email\": \"gomezlucashernan@gmail.com\",\n    \"role\": \"user\"\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{URL_API_SLACK}}/api/workspace/:workspace_id/member/invite",
+                      "host": [
+                        "{{URL_API_SLACK}}"
+                      ],
+                      "path": [
+                        "api",
+                        "workspace",
+                        ":workspace_id",
+                        "member",
+                        "invite"
+                      ],
+                      "variable": [
+                        {
+                          "key": "workspace_id",
+                          "value": "69df97be56181cf34cb80069"
+                        }
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "Listar Miembros",
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3QuYmFja2VuZC5kd2ZzQGdtYWlsLmNvbSIsIm5hbWUiOiJUZXN0IiwiaWQiOiI2OWMxZmJhMGE1YWFiZDU1MTlhMTZmNmMiLCJjcmVhdGVkX2F0IjoiMjAyNi0wMy0yNFQwMjo0OTowNC43OTZaIiwiaWF0IjoxNzc1NTcyODQ3fQ.aPEsU1c63hi777teuXK3GJhE_MnQ4S8CUyZ9XxH6ASQ",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{URL_API_SLACK}}/api/workspace/:workspace_id/member",
+                      "host": [
+                        "{{URL_API_SLACK}}"
+                      ],
+                      "path": [
+                        "api",
+                        "workspace",
+                        ":workspace_id",
+                        "member"
+                      ],
+                      "variable": [
+                        {
+                          "key": "workspace_id",
+                          "value": "69df97be56181cf34cb80069"
+                        }
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "Delete Member",
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3QuYmFja2VuZC5kd2ZzQGdtYWlsLmNvbSIsIm5hbWUiOiJUZXN0IiwiaWQiOiI2OWMxZmJhMGE1YWFiZDU1MTlhMTZmNmMiLCJjcmVhdGVkX2F0IjoiMjAyNi0wMy0yNFQwMjo0OTowNC43OTZaIiwiaWF0IjoxNzc1NTcyODQ3fQ.aPEsU1c63hi777teuXK3GJhE_MnQ4S8CUyZ9XxH6ASQ",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "DELETE",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{URL_API_SLACK}}/api/workspace/:workspace_id/member/:member_id",
+                      "host": [
+                        "{{URL_API_SLACK}}"
+                      ],
+                      "path": [
+                        "api",
+                        "workspace",
+                        ":workspace_id",
+                        "member",
+                        ":member_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "workspace_id",
+                          "value": "69d52451fcddc3321b410728"
+                        },
+                        {
+                          "key": "member_id",
+                          "value": "69de5177a7a4d2fe7db25530"
+                        }
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "New Request",
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3QuYmFja2VuZC5kd2ZzQGdtYWlsLmNvbSIsIm5hbWUiOiJUZXN0IiwiaWQiOiI2OWMxZmJhMGE1YWFiZDU1MTlhMTZmNmMiLCJjcmVhdGVkX2F0IjoiMjAyNi0wMy0yNFQwMjo0OTowNC43OTZaIiwiaWF0IjoxNzc2MjU4NzM1fQ.1XWXfTEtMKHchL5AmMw8tGOtrsTV3GRIbiwwR0aOBao",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "PUT",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n    \"role\": \"user\"\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{URL_API_SLACK}}/api/workspace/:workspace_id/member/:member_id",
+                      "host": [
+                        "{{URL_API_SLACK}}"
+                      ],
+                      "path": [
+                        "api",
+                        "workspace",
+                        ":workspace_id",
+                        "member",
+                        ":member_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "workspace_id",
+                          "value": "69d52451fcddc3321b410728"
+                        },
+                        {
+                          "key": "member_id",
+                          "value": "69df8a324df9d814dd879bc2"
+                        }
+                      ]
+                    }
+                  },
+                  "response": []
+                }
+              ]
+            },
+            {
+              "name": "Borrar Workspace",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3QuYmFja2VuZC5kd2ZzQGdtYWlsLmNvbSIsIm5hbWUiOiJUZXN0IiwiaWQiOiI2OWMxZmJhMGE1YWFiZDU1MTlhMTZmNmMiLCJjcmVhdGVkX2F0IjoiMjAyNi0wMy0yNFQwMjo0OTowNC43OTZaIiwiaWF0IjoxNzc0MzIwNjU0fQ.uqndTRyOglF09MR1sJ2AAsH4_KX4K35QHsTUw0z8TSE",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"name\": \"canal de prueba\",\n    \"description\": \"desde postman\"\n}"
+                },
+                "url": {
+                  "raw": "{{URL_API_SLACK}}/api/workspace/:workspace_id",
+                  "host": [
+                    "{{URL_API_SLACK}}"
+                  ],
+                  "path": [
+                    "api",
+                    "workspace",
+                    ":workspace_id"
+                  ],
+                  "variable": [
+                    {
+                      "key": "workspace_id",
+                      "value": "69df97be56181cf34cb80069"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "New Request",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3QuYmFja2VuZC5kd2ZzQGdtYWlsLmNvbSIsIm5hbWUiOiJUZXN0IiwiaWQiOiI2OWMxZmJhMGE1YWFiZDU1MTlhMTZmNmMiLCJjcmVhdGVkX2F0IjoiMjAyNi0wMy0yNFQwMjo0OTowNC43OTZaIiwiaWF0IjoxNzc0MzIwNjU0fQ.uqndTRyOglF09MR1sJ2AAsH4_KX4K35QHsTUw0z8TSE",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"name\": \"canal de prueba\",\n    \"description\": \"desde postman\"\n}"
+                },
+                "url": {
+                  "raw": "{{URL_API_SLACK}}/api/workspace/:workspace_id",
+                  "host": [
+                    "{{URL_API_SLACK}}"
+                  ],
+                  "path": [
+                    "api",
+                    "workspace",
+                    ":workspace_id"
+                  ],
+                  "variable": [
+                    {
+                      "key": "workspace_id",
+                      "value": "69dfa5f7de678a5dfdbf31e4"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Listar Workspaces del usuario",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3QuYmFja2VuZC5kd2ZzQGdtYWlsLmNvbSIsIm5hbWUiOiJUZXN0IiwiaWQiOiI2OWMxZmJhMGE1YWFiZDU1MTlhMTZmNmMiLCJjcmVhdGVkX2F0IjoiMjAyNi0wMy0yNFQwMjo0OTowNC43OTZaIiwiaWF0IjoxNzc1NTcyODQ3fQ.aPEsU1c63hi777teuXK3GJhE_MnQ4S8CUyZ9XxH6ASQ",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{URL_API_SLACK}}/api/workspace",
+              "host": [
+                "{{URL_API_SLACK}}"
+              ],
+              "path": [
+                "api",
+                "workspace"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Crear Workspace",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3QuYmFja2VuZC5kd2ZzQGdtYWlsLmNvbSIsIm5hbWUiOiJUZXN0IiwiaWQiOiI2OWMxZmJhMGE1YWFiZDU1MTlhMTZmNmMiLCJjcmVhdGVkX2F0IjoiMjAyNi0wMy0yNFQwMjo0OTowNC43OTZaIiwiaWF0IjoxNzc0MzIwNjU0fQ.uqndTRyOglF09MR1sJ2AAsH4_KX4K35QHsTUw0z8TSE",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"title\": \"General\",\n    \"description\": \"Espacio de trabajo global, para comunicacion de todos los integrantes del departamento\",\n    \"url_image\": \"\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{URL_API_SLACK}}/api/workspace",
+              "host": [
+                "{{URL_API_SLACK}}"
+              ],
+              "path": [
+                "api",
+                "workspace"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
